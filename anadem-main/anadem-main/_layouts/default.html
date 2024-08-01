@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: "en-US" }}">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+     <!-- other content of the head element goes here -->
+    <!--<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/styles/default.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/codepen-embed.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.8.0/dist/highlightjs-line-numbers.min.js"></script>
+
+    <script>hljs.initHighlightingOnLoad();</script>
+
+{% seo %}
+    <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+    {% include head-custom.html %}
+  </head>
+  
+  <body>
+    <!-- Primeira Coluna (Esquerda) -->
+    <div class="wrapper">
+      <header>
+        <h1><a href="{{ "/" | absolute_url }}">ANADEM v1.0</a></h1>
+        <p><i>Created by: Leonardo Laipelt; Bruno Comini de Andrade; Anderson Ruhoff; Alexandre Amorim; Walter Collischonn; Rodrigo Cauduro Dias de Paiva</i></p>
+        <p><i>Last updated: 28/02/2024</i></p>
+        
+        {% if site.logo %}
+          <img src="{{site.logo | relative_url}}" alt="Logo" />
+        {% endif %}
+
+        <!--<p>{{ site.description | default: site.github.project_tagline }}</p>-->
+ 
+        {% if site.github.is_project_page %}
+        <p class="view"><a href="{{ site.github.repository_url }}">View the Project on GitHub <small>{{ site.github.repository_nwo }}</small></a></p>
+        {% endif %}
+
+        {% if site.github.is_user_page %}
+        <p class="view"><a href="{{ site.github.owner_url }}">View My GitHub Profile</a></p>
+        {% endif %}
+
+        {% if site.show_downloads %}
+        <ul class="downloads">
+          <li><a href="{{ site.github.zip_url }}">Download <strong>ZIP File</strong></a></li>
+          <li><a href="{{ site.github.tar_url }}">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="{{ site.github.repository_url }}">View On <strong>GitHub</strong></a></li>
+        </ul>
+        {% endif %}
+      </header>
+      <section>
+
+        <h2>ANADEM - South America Digital Terrain Model </h2>
+
+        <p>ANADEM is a digital terrain model (DTM) for South America. The model removes the vegetation bias from the
+        Copernicus GLO-30 DEM by appling a new methodology based on remote sensing data and machine learning. 
+        </p>
+        <p>
+          The data is freely available at 30 meters in Google Earth Engine platform or in TIF files located in the Download section in this page.
+        </p>
+        <p>
+          
+        </p>
+        <img src="assets/img/figure_difference_amazon_.png" alt="anadem">
+        <h3>Earth Engine Snippet</h3>
+
+        <div class="language-plaintext highlighter-rouge">
+        <div class='highlight'>
+        <code tabindex="0"><span class="kd">var</span><span class="w"> </span><span class="nx">anadem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">ImageCollection</span><span class="p">(</span><span class="s2">"projects/et-brasil/assets/anadem/v1"</span><span class="p">);</span>
+
+        </div>
+        </div>
+        <p></p>
+        <p>ANADEM visualization in Google Earth Engine JavaScript</p>
+       <pre><code class="language-javascript">
+          /*
+          Developed by the Federal University of Rio Grande do Sul and Brazilian Water Agency (ANA)
+          contact: leonardo.laipelt@ufrgs.br
+          */
+          
+          // Asset
+          var anadem = ee.Image('projects/et-brasil/assets/anadem/v1');
+
+         // Remover noData
+          var anadem = anadem.updateMask(anadem.neq(-9999));
+          
+          // Visualization parameters
+          var visparams = { min: 0,
+            max: 1300.0,
+            palette:['006600', '002200', 'fff700', 'ab7634', 'c4d0ff', 'ffffff']
+          };
+          // add layer 
+          Map.addLayer(anadem,visparams,'anadem');
+          </code></pre>
+
+          
+
+        <h3>Source code</h3>
+        <a href="https://github.com/HGE-IPH/anadem/tree/main">Anadem v 1.0</a>
+
+        <p></p>
+        <h3>How to cite</h3>
+
+        <h3>Download ANADEM </h3>
+        <table><tbody><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_17L.tif">anadem_v1_mgrs_17l.tif</a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_17M.tif">anadem_v1mgrs_17m.tif</a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_17N.tif">anadem_v1_mgrs_17n.tif</a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_18F.tif">anadem_v1_mgrs_18f.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_18G.tif">anadem_v1_mgrs_18g.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_18H.tif">anadem_v1_mgrs_18h.tif</a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_18K.tif">anadem_v1_mgrs_18k.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_18L.tif">anadem_v1_mgrs_18l.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_18M.tif">anadem_v1_mgrs_18m.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_18N.tif">anadem_v1_mgrs_18n.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_18P.tif">anadem_v1_mgrs_18p.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_19F.tif">anadem_v1_mgrs_19f.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_19G.tif">anadem_v1_mgrs_19g.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_19H.tif">anadem_v1_mgrs_19h.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_19J.tif">anadem_v1_mgrs_19j.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_19K.tif">anadem_v1_mgrs_19k.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_19L.tif">anadem_v1_mgrs_19l.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_19M.tif">anadem_v1_mgrs_19m.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_19N.tif">anadem_v1_mgrs_19n.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_19P.tif">anadem_v1_mgrs_19p.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_20F.tif">anadem_v1_mgrs_20f.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_20G.tif">anadem_v1_mgrs_20g.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_20H.tif">anadem_v1_mgrs_20h.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_20J.tif">anadem_v1_mgrs_20j.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_20K.tif">anadem_v1_mgrs_20k.tif</a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_20L.tif">anadem_v1_mgrs_20l.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_20M.tif">anadem_v1_mgrs_20m.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_20N.tif">anadem_v1_mgrs_20n.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_20P.tif">anadem_v1_mgrs_20p.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_21F.tif">anadem_v1_mgrs_21f.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_21H.tif">anadem_v1_mgrs_21h.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_21J.tif">anadem_v1_mgrs_21j.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_21K.tif">anadem_v1_mgrs_21k.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_21L.tif">anadem_v1_mgrs_21l.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_21M.tif">anadem_v1_mgrs_21m.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_21N.tif">anadem_v1_mgrs_21n.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_21P.tif">anadem_v1_mgrs_21p.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_22H.tif">anadem_v1_mgrs_22h.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_22J.tif">anadem_v1_mgrs_22j.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_22K.tif">anadem_v1_mgrs_22k.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_22L.tif">anadem_v1_mgrs_22l.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_22M.tif">anadem_v1_mgrs_22m.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_22N.tif">anadem_v1_mgrs_22n.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_23J.tif">anadem_v1_mgrs_23j.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_23K.tif">anadem_v1_mgrs_23k.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_23L.tif">anadem_v1_mgrs_23l.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_23M.tif">anadem_v1_mgrs_23m.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_24K.tif">anadem_v1_mgrs_24k.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_24L.tif">anadem_v1_mgrs_24l.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_24M.tif">anadem_v1_mgrs_24m.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_25L.tif">anadem_v1_mgrs_25l.tif </a></td></tr><tr><td><a href="https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_25M.tif">anadem_v1_mgrs_25m.tif</a></td></tr></tbody></table>
+        <h3>Last updates</h3>
+        <ul>
+          <li>20/02/2024 - Updated for version 1.0. Declared -9999 as nodata in the model. Truncated elevation values to 2 decimal place.</li>
+          <li>20/11/2023 - Updated for version 0.18. Filtering areas around river sections to remove values ​​lower than the elevation of the drainage network.</li>
+        </ul>
+
+      <!-- Conteudo principal -->
+      <!--{{ content }}-->
+
+      </section>
+      <footer>
+        {% if site.github.is_project_page %}
+        <p>This project is maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></p>
+        {% endif %}
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="{{ "/assets/js/scale.fix.js" | relative_url }}"></script>
+  </body>
+</html>
